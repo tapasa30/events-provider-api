@@ -1,0 +1,82 @@
+version: '3.4'
+
+services:
+  php:
+    build:
+      context: .docker/php
+    volumes:
+      - ./:/var/www/html:delegated
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+      - /home/${USER}:/home/${USER}:delegated
+    depends_on:
+      mysql:
+          condition: service_healthy
+    links:
+      - mysql
+      - redis
+
+  nginx:
+    build:
+      context: .docker/nginx
+    ports:
+      - "8181:80"
+    volumes:
+      - ./:/var/www/html:ro
+    depends_on:
+      - php
+    links:
+      - php
+
+  mysql:
+    image: mysql:8.0
+    env_file:
+      - .env
+    environment:
+      TZ: Europe/Madrid
+    ports:
+      - "3360:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 5s
+      retries: 20
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - redis_cache:/data
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    ports:
+      - '5540:5540'
+    depends_on:
+      - redis
+    links:
+      - redis
+
+  swagger_ui:
+    image: swaggerapi/swagger-ui:v5.1.0
+    ports:
+      - "8044:8080"
+    volumes:
+      - ./docs:/specs
+    environment:
+      - SWAGGER_JSON=/specs/index.json
+      - API_URL=/index.json
+    depends_on:
+      - nginx
+    links:
+      - nginx
+
+volumes:
+  mysql_data: {}
+  redis_cache:
+    driver: local

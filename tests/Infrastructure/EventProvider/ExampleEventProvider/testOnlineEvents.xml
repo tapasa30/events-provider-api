@@ -1,0 +1,22 @@
+<eventList version="1.0">
+    <output>
+        <base_event base_event_id="501" sell_mode="online" title="Rock Festival 2024">
+            <event event_start_date="2024-08-15T19:00:00" event_end_date="2024-08-15T22:00:00" event_id="501"
+                   sell_from="2024-05-01T00:00:00" sell_to="2024-08-15T18:00:00" sold_out="false">
+            </event>
+        </base_event>
+        <base_event base_event_id="789" sell_mode="offline" organizer_company_id="3" title="Jazz Night Live">
+            <event event_start_date="2024-09-10T20:30:00" event_end_date="2024-09-10T22:30:00" event_id="789"
+                   sell_from="2024-07-01T00:00:00" sell_to="2024-09-10T20:00:00" sold_out="false">
+                <zone zone_id="25" capacity="0" price="100.00" name="Balcony" numbered="true"/>
+                <zone zone_id="26" capacity="50" price="80.00" name="Main Floor" numbered="false"/>
+            </event>
+        </base_event>
+        <base_event base_event_id="345" sell_mode="offline" organizer_company_id="2" title="Tributo a Queen">
+            <event event_start_date="2024-11-20T21:00:00" event_end_date="2024-11-20T23:30:00" event_id="345"
+                   sell_from="2024-06-15T00:00:00" sell_to="2024-11-20T20:50:00" sold_out="true">
+                <zone zone_id="33" capacity="15" price="120.00" name="VIP Lounge" numbered="false"/>
+            </event>
+        </base_event>
+    </output>
+</eventList>

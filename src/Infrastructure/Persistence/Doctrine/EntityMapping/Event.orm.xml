@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity table="event" name="App\Domain\Entity\Event" repository-class="App\Infrastructure\Database\Doctrine\Repository\EventRepository">
+        <indexes>
+            <index name="start_date_timex" columns="start_date_time"/>
+            <index name="end_date_timex" columns="end_date_time"/>
+        </indexes>
+
+        <id name="id" type="string" column="id" length="36"/>
+
+        <field name="externalId" column="external_id" type="string" />
+        <field name="title" column="title" type="string" />
+
+        <field name="startDateTime" column="start_date_time" type="datetime"/>
+        <field name="endDateTime" column="end_date_time" type="datetime"/>
+
+        <one-to-many field="zones" target-entity="App\Domain\Entity\Zone" mapped-by="event" />
+    </entity>
+</doctrine-mapping>

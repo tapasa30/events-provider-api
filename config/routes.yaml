@@ -1,0 +1,4 @@
+search_events:
+    path: /search
+    methods: GET
+    controller: App\Infrastructure\Http\Symfony\SearchEventsSymfonyController

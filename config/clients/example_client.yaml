@@ -1,0 +1,7 @@
+services:
+  app.client.example_client:
+    class: App\Infrastructure\Client\ExampleClient\ExampleClient
+    arguments:
+      $eventsUrl: '%env(EXAMPLE_CLIENT_EVENTS_URL)%'
+
+  App\Infrastructure\Client\ExampleClient\ExampleClient: '@app.client.example_client'
