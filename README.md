@@ -90,29 +90,3 @@ To list Make available commands
 ```bash
 make help
 ```
-
----
-
-## Making It Faster
-To ensure the system performs efficiently, even with high traffic and large datasets, consider the following strategies:
-
-### Search endpoint query limits
-- Right now the search is providing a non-limited event list, it should be paginated
-
-### Caching
-- Cache query results should be cleared when new data is fetched from the provider.
-
-### Asynchronous Processing
-- Leverage a message queue system like **RabbitMQ** or **Kafka** to process provider events asynchronously when they are retrieved from the provider.
-- This helps decouple real-time requests from heavy computations.
-
-### Scalability
-- Add more replicas for read-heavy services or API endpoints during peak traffic.
-- Configure Nginx for load balancing between server replicas
-
-### Database
-- Use a database like **Elasticsearch** to be the main database for the search results data origin
-
-### Monitoring and Profiling
-- Implement tools like **Prometheus** or **New Relic** to monitor performance and detect bottlenecks.
-- Profile code regularly to identify and optimize slow queries or processes.
